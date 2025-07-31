@@ -20,21 +20,30 @@ This project is building an e-commerce website from scratch with 6 milestones.
 - **distribution_centers**: Distribution center locations
 
 ### Setup Instructions:
-1. Install Python dependencies:
+1. Clone the repository and install Python dependencies:
    ```bash
+   git clone <your-repo-url>
+   cd ecommerce-website
    pip install -r requirements.txt
    ```
 
-2. Run the database setup script:
+2. Download the dataset:
    ```bash
-   python database_setup.py
+   git clone https://github.com/recruit41/ecommerce-dataset.git
    ```
 
-3. The script will:
+3. Initialize the database:
+   ```bash
+   python init_database.py
+   ```
+
+4. The script will:
    - Create SQLite database (`ecommerce.db`)
    - Create all necessary tables
    - Load data from CSV files
    - Verify data loading with row counts and sample data
+
+**Note:** The database file (`ecommerce.db`) is not included in the repository due to size limitations. Each developer needs to run the initialization script locally.
 
 ### Data Verification:
 The script provides detailed logging of:
@@ -59,13 +68,28 @@ The script provides detailed logging of:
 ## Project Structure:
 ```
 E-commerce webpage/
-├── ecommerce-dataset/          # Downloaded dataset
+├── ecommerce-dataset/          # Downloaded dataset (not in repo)
 │   └── archive/               # Extracted CSV files
 ├── database_setup.py          # Database setup script
+├── init_database.py           # Database initialization script
+├── quick_start.py             # Automated setup script
+├── verify_data.py             # Data verification script
 ├── requirements.txt           # Python dependencies
-├── README.md                 # Project documentation
-└── ecommerce.db              # SQLite database (created after running setup)
+├── .gitignore                 # Git ignore rules
+├── README.md                  # Project documentation
+└── ecommerce.db               # SQLite database (generated locally, not in repo)
 ```
+
+## Quick Start:
+For new developers, simply run:
+```bash
+python quick_start.py
+```
+This will automatically:
+1. Install dependencies
+2. Download the dataset
+3. Initialize the database
+4. Verify the setup
 
 ## Next Milestones:
 - Milestone 2: [To be defined]

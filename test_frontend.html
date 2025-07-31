@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Test - E-Commerce</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .info {
+            color: #17a2b8;
+            font-weight: bold;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        #testResults {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Frontend Test - E-Commerce Milestone 3</h1>
+    
+    <div class="test-section">
+        <h2>Test Instructions</h2>
+        <p>This page tests the frontend functionality. Make sure your Flask API server is running on <code>http://localhost:5000</code> before running these tests.</p>
+        
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="testAPI()">Test API Connection</button>
+        <button onclick="testFrontendFiles()">Test Frontend Files</button>
+        <button onclick="openMainApp()">Open Main Application</button>
+    </div>
+
+    <div id="testResults"></div>
+
+    <script>
+        function log(message, type = 'info') {
+            const results = document.getElementById('testResults');
+            const div = document.createElement('div');
+            div.className = `test-section ${type}`;
+            div.innerHTML = `<strong>${type.toUpperCase()}:</strong> ${message}`;
+            results.appendChild(div);
+        }
+
+        async function testAPI() {
+            log('Testing API connection...', 'info');
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/products?page=1&limit=5');
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`API connection successful! Found ${data.products?.length || 0} products`, 'success');
+                    return true;
+                } else {
+                    log(`API connection failed with status: ${response.status}`, 'error');
+                    return false;
+                }
+            } catch (error) {
+                log(`API connection failed: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        function testFrontendFiles() {
+            log('Testing frontend files...', 'info');
+            
+            const requiredFiles = [
+                'index.html',
+                'styles/main.css',
+                'js/api.js',
+                'js/app.js'
+            ];
+            
+            let allFilesExist = true;
+            
+            requiredFiles.forEach(file => {
+                fetch(file)
+                    .then(response => {
+                        if (response.ok) {
+                            log(`✓ ${file} exists`, 'success');
+                        } else {
+                            log(`✗ ${file} not found`, 'error');
+                            allFilesExist = false;
+                        }
+                    })
+                    .catch(error => {
+                        log(`✗ ${file} error: ${error.message}`, 'error');
+                        allFilesExist = false;
+                    });
+            });
+            
+            return allFilesExist;
+        }
+
+        function openMainApp() {
+            log('Opening main application...', 'info');
+            window.open('index.html', '_blank');
+        }
+
+        async function runAllTests() {
+            log('Starting comprehensive frontend tests...', 'info');
+            
+            // Clear previous results
+            document.getElementById('testResults').innerHTML = '';
+            
+            // Test 1: API Connection
+            const apiTest = await testAPI();
+            
+            // Test 2: Frontend Files
+            const filesTest = testFrontendFiles();
+            
+            // Test 3: Check if main app can be opened
+            setTimeout(() => {
+                if (apiTest) {
+                    log('All tests completed! The frontend should work correctly.', 'success');
+                    log('Click "Open Main Application" to test the full interface.', 'info');
+                } else {
+                    log('API test failed. Make sure your Flask server is running.', 'error');
+                    log('Run: python app.py in your terminal', 'info');
+                }
+            }, 2000);
+        }
+
+        // Auto-run basic tests on page load
+        window.addEventListener('load', () => {
+            log('Frontend test page loaded. Click "Run All Tests" to begin testing.', 'info');
+        });
+    </script>
+</body>
+</html> 

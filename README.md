@@ -91,8 +91,77 @@ This will automatically:
 3. Initialize the database
 4. Verify the setup
 
+## Milestone 2: REST API for Products ✅
+
+### Completed Tasks:
+1. ✅ Created Flask REST API application (`app.py`)
+2. ✅ Implemented GET /api/products endpoint with pagination and filtering
+3. ✅ Implemented GET /api/products/{id} endpoint for specific products
+4. ✅ Added proper JSON response format and error handling
+5. ✅ Enabled CORS headers for frontend integration
+6. ✅ Created comprehensive API documentation
+7. ✅ Added testing script for API verification
+
+### API Endpoints:
+- **GET /** - API information and available endpoints
+- **GET /api/products** - List all products (with pagination, filtering)
+- **GET /api/products/{id}** - Get specific product by ID
+- **GET /api/products/categories** - Get product categories with statistics
+- **GET /api/products/brands** - Get product brands with counts
+- **GET /api/products/stats** - Get overall product statistics
+
+### Features:
+- **Pagination**: Efficient handling of large datasets (default: 20 items, max: 100)
+- **Filtering**: By category, brand, department, price range
+- **Error Handling**: 404 for not found, 400 for invalid ID, 500 for server errors
+- **CORS Support**: Ready for frontend integration
+- **JSON Responses**: Consistent response format with success/error indicators
+
+### Setup and Testing:
+1. Start the API server:
+   ```bash
+   python app.py
+   ```
+
+2. Test the API:
+   ```bash
+   python test_api.py
+   ```
+
+3. Manual testing with curl:
+   ```bash
+   curl http://localhost:5000/
+   curl http://localhost:5000/api/products
+   curl http://localhost:5000/api/products/1
+   ```
+
+### API Documentation:
+See `API_DOCUMENTATION.md` for comprehensive documentation including:
+- All endpoint details
+- Request/response examples
+- Error handling
+- Testing instructions
+- Deployment considerations
+
+## Project Structure:
+```
+E-commerce webpage/
+├── ecommerce-dataset/          # Downloaded dataset (not in repo)
+│   └── archive/               # Extracted CSV files
+├── app.py                     # Flask REST API application
+├── test_api.py                # API testing script
+├── API_DOCUMENTATION.md       # Comprehensive API documentation
+├── database_setup.py          # Database setup script
+├── init_database.py           # Database initialization script
+├── quick_start.py             # Automated setup script
+├── verify_data.py             # Data verification script
+├── requirements.txt           # Python dependencies
+├── .gitignore                 # Git ignore rules
+├── README.md                  # Project documentation
+└── ecommerce.db               # SQLite database (generated locally, not in repo)
+```
+
 ## Next Milestones:
-- Milestone 2: [To be defined]
 - Milestone 3: [To be defined]
 - Milestone 4: [To be defined]
 - Milestone 5: [To be defined]
